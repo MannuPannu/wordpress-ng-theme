@@ -1,0 +1,176 @@
+.topbar {
+    height: 175px;
+	background-color: #379e7c;
+    background-image: url('grey.png');
+    background-blend-mode: multiply;
+}
+
+.footer {
+    background-color: black;
+    height: 60px;
+    margin-top: 50px;
+    color: ghostwhite;
+    text-align: center;
+}
+
+.footer-title {
+    padding-top: 17px;
+}
+
+.content {
+    margin-top: 50px;
+}
+
+.aboutPic {
+    background-image: url('me.jpg');
+    background-size: cover;
+    height: 250px;
+    width: 250px;
+    border-radius: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    
+}
+
+.aboutMeContainer {
+    background-color: #efefef;
+    padding: 10px;
+}
+
+.aboutMeText {
+    font-size: 1.5rem;
+    margin-top: 25px;
+    text-align: center;
+}
+
+.menu_bar {
+    font-size: 2rem; 
+    background-color: black;
+    height: 60px;
+
+    border-top-style: solid;
+    border-top-color: black;
+    border-top-width: 1px;
+
+    border-bottom-style: solid;
+    border-bottom-color: black;
+    border-bottom-width: 1px;
+}
+
+.links {
+    color: white;
+    padding-top: 15px;
+}
+
+.link {
+    display: inline-block;
+    margin-right: 20px;
+}
+
+.title {
+    color: ghostwhite;
+    font-size: 3.5rem;
+    line-height: normal;
+    text-shadow: 1px 1px grey;
+}
+
+.sub-title {
+    color: white;
+    font-size: 1.7rem;
+    font-style: italic;
+}
+
+.titleContainer {
+   width: 80%;
+   margin: 0 auto;
+   text-align: center; 
+   padding-top: 55px;
+}
+
+body {
+    margin: 0px;
+    font-size: 1.8rem; 
+}
+
+.container {
+    width: 90%;
+}
+
+.link > a {
+    color: white;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #379e7c
+}
+
+/* Mobile menu icon */
+.toggleIcon { 
+    display: none; 
+    font-size: 5rem;    
+    margin-top: -10px; 
+}
+
+/* Toggle menu collapsed */
+@media screen and (max-width:680px) {
+  .link:not(:first-child) {display: none;}
+  
+  .toggleIcon { 
+      position: absolute; 
+      display: inline;
+      right: 20px;
+    }
+}
+
+/* Toggle menu shown on computer screen */
+@media screen and (max-width:680px)  {
+    .menu_bar.responsive {
+        height: 100%;
+    }
+
+    .menu_bar.responsive .link {
+        float: none;
+        right: 0;
+        top: 0;
+        display: block;
+        margin-bottom: 15px;
+    }
+
+    .menu_bar.responsive .link.toggleIcon {
+        position: absolute;
+        padding-top: 13px;
+    }
+}
+
+@media screen and (max-device-width: 680px) {
+    .menu_bar.responsive {
+        height: 100%;
+    }
+
+    .menu_bar.responsive .link {
+        float: none;
+        right: 0;
+        top: 0;
+        display: block;
+        margin-bottom: 10px;
+    }
+
+    .menu_bar.responsive .link.toggleIcon {
+        position: absolute;
+        padding-top: 13px;
+        padding-right: 20px;
+    }
+}
+
+/* Set responsive margins for main container and links*/
+@media screen and (max-width:800px) {
+    .links {
+        margin-left:  2%;
+    }
+}
+@media screen and (max-device-width:950px) {
+    .links {
+        margin-left:  0px;
+    }
+}

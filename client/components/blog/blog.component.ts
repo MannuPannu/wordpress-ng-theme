@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import {Http} from '@angular/http';
-// import {ArticlesComponent} from './articles.component';
 
 @Component({
     moduleId: module.id,
-    selector: 'my-app',
-    templateUrl: 'app.html'
+    selector: 'blog',
+    templateUrl: 'blog.html'
 })
-export class AppComponent implements OnInit { 
+export class BlogComponent implements OnInit { 
     articles : Object;
 
     constructor(private _http: Http) { }
