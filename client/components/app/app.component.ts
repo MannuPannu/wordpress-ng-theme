@@ -4,18 +4,7 @@ import {Http} from '@angular/http';
 
 @Component({
     selector: 'my-app',
-    template: `<h1>My First Angular 23 </h1>
-                <div *ngFor="let article of articles">
-                    <hr />
-                    <h1>{{article.title.rendered}}</h1>
-                    <div>
-                        {{ article.content.rendered }}
-                    </div>
-                    <div>
-                        {{ article | json }}
-                    </div>
-                </div>
-              `
+    templateUrl: 'components/app/app.html'
 })
 export class AppComponent implements OnInit { 
     articles : Object;
