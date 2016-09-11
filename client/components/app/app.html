@@ -27,23 +27,21 @@
 <section class="container">
     <div class="row">
         <div class="eight columns">
-            <router-outlet></router-outlet>
+            <div class="content">
+                <router-outlet></router-outlet>
+            </div>
         </div>
         <div class="four columns">
             <div class="content aboutMeContainer">
                 <div class="aboutPic"></div>
                 <div class="aboutMeText">
                     <p>
-                    I am a full stack web developer living and working in Uppsala. I work at a web design
-                    company <a href="http://www.exor.se">Exor</a> were I mostly use Microsoft technologies; ASP.NET, 
-                    WEB API, MS Sql for the backend but also Javascript and Knockoutjs/JQuery for the client.
+                    Fullstack web developer working at <a href="http://www.exor.se">Exor</a> in Uppsala, Sweden.
+                    Currently programming in Javscript, .Net Web API, MS SQL. Fond of programming languages in general
+                    and the new exciting stuff in the world of web programming. 
                     </p>
                     <p>
-                    I like trying out new technologies like Angular2, ReactJS and so forth.  
-                    Coming from Linux background I completely embrace the open source community!
-                    </p>
-                    <p>
-                        Read more about <a href="javascript:void(0)">me</a>
+                        Read more about <a routerLink="/wordpress/aboutme">me</a>
                     </p>
                 </div>
             </div>

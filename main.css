@@ -67,6 +67,11 @@
     margin-right: 20px;
 }
 
+.link a.active {
+    color: #379e7c;
+    font-size: 2.2rem;
+}
+
 .title {
     color: ghostwhite;
     font-size: 3.5rem;
@@ -103,7 +108,7 @@ body {
 }
 
 a:hover {
-    color: #379e7c
+    color: #6ea593;
 }
 
 /* Mobile menu icon */
@@ -173,5 +178,12 @@ a:hover {
 @media screen and (max-device-width:950px) {
     .links {
         margin-left:  0px;
+    }
+}
+
+@media screen and (max-width:1000px) {
+    .aboutPic {
+        width: 130px;
+        height: 130px;
     }
 }
