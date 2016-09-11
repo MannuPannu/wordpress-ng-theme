@@ -1,4 +1,58 @@
-<h1>My First Angular 23 (Appcompoent)</h1>
-<router-outlet></router-outlet>
+<section class="topbar">
+    <div class="titleContainer">
+        <div class="title">Magnus Stenqvist</div>
+        <span class="sub-title">On programming, tech & games</span>
+    </div>
+</section>
+<section id="menuBar" class="menu_bar">
+    <div class="container">
+        <div class="toggleIcon">
+            <a href="javascript:void(0);" onclick="myFunction()">&#9776;</a>
+        </div>
+        <div class="links">
+            <div class="link">
+                <a routerLink="/wordpress/blog" routerLinkActive="active">Blog</a>
+            </div>
+            <div class="link">
+                <a routerLink="/wordpress/games" routerLinkActive="active">Games</a>
+            </div>
+            <div class="link">
+                <a routerLink="/wordpress/aboutme" routerLinkActive="active">About me</a>
+            </div>
 
+        </div>
+    </div>
+</section>
+
+<section class="container">
+    <div class="row">
+        <div class="eight columns">
+            <router-outlet></router-outlet>
+        </div>
+        <div class="four columns">
+            <div class="content aboutMeContainer">
+                <div class="aboutPic"></div>
+                <div class="aboutMeText">
+                    <p>
+                    I am a full stack web developer living and working in Uppsala. I work at a web design
+                    company <a href="http://www.exor.se">Exor</a> were I mostly use Microsoft technologies; ASP.NET, 
+                    WEB API, MS Sql for the backend but also Javascript and Knockoutjs/JQuery for the client.
+                    </p>
+                    <p>
+                    I like trying out new technologies like Angular2, ReactJS and so forth.  
+                    Coming from Linux background I completely embrace the open source community!
+                    </p>
+                    <p>
+                        Read more about <a href="javascript:void(0)">me</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="footer">
+    <div class="footer-title">
+        <h6>&copy; 2016 Magnus Stenqvist</h6>
+    </div>
+</section>
 
