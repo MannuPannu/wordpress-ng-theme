@@ -18,11 +18,12 @@ function my_scripts() {
 	register_vendor_script('zone', 'zone.js/dist/zone.js');
 	register_vendor_script('Reflect', 'reflect-metadata/Reflect.js');
 	register_vendor_script('system', 'systemjs/dist/system.src.js');
+	register_vendor_script('moment', 'moment/moment.js');
 
 	wp_enqueue_script(
         	'system-start',
         	get_stylesheet_directory_uri().'/systemjs.config.js',
-        	array('shim', 'zone', 'Reflect', 'system')
+        	array('shim', 'zone', 'Reflect', 'system', 'moment')
         );
 
     wp_enqueue_style(array('normalize', 'skeleton', 'main'));

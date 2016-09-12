@@ -11,11 +11,15 @@ import { ArticleComponent } from '../article/article.component'
 })
 export class ArticleListComponent implements OnInit { 
     articles : Object;
+    articleComments: Object;
 
     constructor(private _http: Http, private _blogService: BlogService) { }
 
     ngOnInit(){
-        this._blogService.getArticles().subscribe((data: any) => this.articles = JSON.parse(data._body),
+        this._blogService.getArticles(1).subscribe((data: any) => this.articles = JSON.parse(data._body),
                                                   error => console.log("There was an error: " + error))
+
+        // this._blogService.getComments(1).subscribe((data: any) => this.articles = JSON.parse(data._body),
+        //                                           error => console.log("There was an error: " + error))
     }
 }

@@ -1,5 +1,8 @@
     <h2 [innerHTML]="article.title.rendered"></h2>
-    <div [innerHTML]="article.content.rendered">>
+    <span class="articleDateText">{{ articleDate }}</span>/
+    <div [innerHTML]="article.content.rendered">
     </div>
+    <span>{{ article | json }}</span>
+    <span>{{ dateText }}</span>
     <hr />
     An article

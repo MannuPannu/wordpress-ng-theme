@@ -8,7 +8,11 @@ export class BlogService {
 
     constructor(private _http: Http) { }
 
-    getArticles() {
-        return this._http.get(this._wpBase + 'posts/?page=1');
+    getArticles(pageIndex: number) {
+        return this._http.get(this._wpBase + 'posts/?page=' + pageIndex);
+    }
+
+    getComments(pageId: number) {
+        return this._http.get(this._wpBase + 'comments/?page=' + pageId);
     }
 }
