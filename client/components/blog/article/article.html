@@ -1,8 +1,8 @@
-    <h2 [innerHTML]="article.title.rendered"></h2>
-    <span class="articleDateText">{{ articleDate }}</span>/
-    <div [innerHTML]="article.content.rendered">
-    </div>
-    <span>{{ article | json }}</span>
-    <span>{{ dateText }}</span>
+    <h2 [innerHTML]="article.data.title.rendered"></h2>
+    <h6 class="articleDateText">{{ articleDate }}&nbsp;|&nbsp;{{ numberOfCommentsStr }}</h6>
+    <p>
+        <span [innerHTML]="article.data.content.rendered">
+        </span>
+    </p>
+    <!--<span>{{ article | json }}</span>-->
     <hr />
-    An article

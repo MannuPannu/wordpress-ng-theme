@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Http} from '@angular/http';
 import { BlogService } from '../../../services/blog.service'
 import { ArticleComponent } from '../article/article.component'
+import {Article} from '../../../classes/Article';
 
 @Component({
     moduleId: module.id,
@@ -10,16 +11,13 @@ import { ArticleComponent } from '../article/article.component'
     providers: [BlogService],
 })
 export class ArticleListComponent implements OnInit { 
-    articles : Object;
+    articles : Article[];
     articleComments: Object;
 
     constructor(private _http: Http, private _blogService: BlogService) { }
 
     ngOnInit(){
-        this._blogService.getArticles(1).subscribe((data: any) => this.articles = JSON.parse(data._body),
-                                                  error => console.log("There was an error: " + error))
-
-        // this._blogService.getComments(1).subscribe((data: any) => this.articles = JSON.parse(data._body),
-        //                                           error => console.log("There was an error: " + error))
+        this.articles = [];
+        this._blogService.populateArticles(1, this.articles);
     }
 }

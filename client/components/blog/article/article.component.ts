@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { BlogService } from '../../../services/blog.service'
+import {Article} from '../../../classes/Article';
 
 @Component({
     moduleId: module.id,
@@ -8,15 +9,18 @@ import { BlogService } from '../../../services/blog.service'
 })
 export class ArticleComponent implements OnInit{ 
     @Input()
-    article : any; //todo: Create class for this
+    article : Article; //todo: Create class for this
     articleDate: string;
-    numberOfComments: number;
+    numberOfCommentsStr: string;
 
     constructor(private _blogService: BlogService) { }
 
     ngOnInit(){
-        this.articleDate = moment(this.article.date).format("YYYY-MM-DD");
+        
+        this.articleDate = moment(this.article.data.date).format("YYYY-MM-DD");
 
-        // this._blogService.getComments(this.article.id).subscribe((data : any) => console.log(data));
+        this.numberOfCommentsStr = (this.article.comments.length.toString() 
+                                    + " comment" 
+                                    + ((this.article.comments.length === 0 || this.article.comments.length > 1) ? "s" : ""));
     }
 }
