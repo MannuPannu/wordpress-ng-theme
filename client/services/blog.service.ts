@@ -14,8 +14,8 @@ export class BlogService {
     public populateArticles(pageIndex : number, articles:Article[]) {
 
         //Gets articles and comments from API then joins them to create Article objects
-        Observable.forkJoin([this.getArticlesFromAPI(pageIndex), 
-                             this.getCommentsFromAPI(pageIndex)])
+        Observable.forkJoin([this.getArticlesByPageFromAPI(pageIndex), 
+                             this.getCommentsByPageFromAPI(pageIndex)])
                            .subscribe((queue: any) => {
                               var _articles = JSON.parse(queue[0]._body);
                               var comments = JSON.parse(queue[1]._body) as any[];
@@ -25,11 +25,28 @@ export class BlogService {
                                                                 
     }
 
-    private getArticlesFromAPI(pageIndex: number) {
+    public getArticleBySlug(slug: string){
+        return Observable.forkJoin([this.getArticleBySlugFromAPI(slug), 
+                             this.getCommentBySlugFromAPI(slug)]).map((r:any) => {
+                                var _article = JSON.parse(r[0]._body)[0];
+                                var comments = JSON.parse(r[1]._body) as any[];
+                                return new Article(_article, comments.filter(c => c.post === _article.id));
+                             })
+    }
+
+    private getArticlesByPageFromAPI(pageIndex: number) {
         return this._http.get(this._wpBase + 'posts/?page=' + pageIndex);
     }
 
-    private getCommentsFromAPI(pageId: number) {
+    private getCommentsByPageFromAPI(pageId: number) {
         return this._http.get(this._wpBase + 'comments/?page=' + pageId);
+    }
+
+    private getArticleBySlugFromAPI(slug: string) {
+        return this._http.get(this._wpBase + 'posts/?slug=' + slug);
+    }
+
+    private getCommentBySlugFromAPI(slug: string) {
+        return this._http.get(this._wpBase + 'comments/?slug=' + slug);
     }
 }

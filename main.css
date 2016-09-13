@@ -118,6 +118,15 @@ a:hover {
     margin-top: -10px; 
 }
 
+.articleTitle {
+    text-decoration: none;
+    color: black;
+}
+
+.articleDateText {
+    cursor: pointer;
+}
+
 /* Toggle menu collapsed */
 @media screen and (max-width:680px) {
   .link:not(:first-child) {display: none;}

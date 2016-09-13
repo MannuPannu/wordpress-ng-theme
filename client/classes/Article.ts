@@ -1,6 +1,6 @@
 export class Article {
-    data: any;
-    comments: any[]
+    public data: any;
+    public comments: any[]
 
     constructor(data: any, comments: any[]) {
         this.data = data;
