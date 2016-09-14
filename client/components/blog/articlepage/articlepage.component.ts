@@ -31,4 +31,14 @@ export class ArticlePageComponent implements OnInit{
             });
         });
     }
+
+    sortByDate(comments: any[]){
+        return comments.sort(function(a:any, b:any) { 
+            return (moment(b.date) as any) - (moment(a.date) as any)
+        });
+    }
+
+    getCommentDate(dateStr:string) {
+        return moment(dateStr).format("YYYY-MM-DD HH:mm");
+    }
 }

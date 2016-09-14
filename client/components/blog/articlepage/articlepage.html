@@ -5,9 +5,17 @@
             <span [innerHTML]="article.data.content.rendered">
             </span>
         </p>
-        <span>{{ article | json }}</span>
 
         <div id="comments">
-            Some comments here!
+            <h4>Comments</h4>
+            <hr>
+            <div *ngFor="let comment of sortByDate(article.comments)">
+                <div style="font-weight: bold">
+                    {{ comment.author_name }}&nbsp;|&nbsp;{{ getCommentDate(comment.date) }}
+                </div>
+                <div class="commentArea" [innerHTML]="comment.content.rendered">
+                </div>
+                <span>{{ comment | json }}</span>
+            </div>
         </div>
     </div>
