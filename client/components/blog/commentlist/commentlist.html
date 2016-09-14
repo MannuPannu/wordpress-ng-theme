@@ -1,0 +1,9 @@
+
+<div [ngClass]="{ addLevelMargin: hasParent }" *ngFor="let comment of comments">
+    <div style="font-weight: bold">
+        {{ comment.authorName }}&nbsp;|&nbsp;{{ comment.createdDate.format("YYYY-MM-DD HH:mm") }}
+    </div>
+    <div class="commentArea" [innerHTML]="comment.content"></div>
+    <commentlist *ngIf="comment.childs.length > 0" [comments]="comment.childs" [hasParent]="true"></commentlist>
+</div>
+<!--<span>{{ comment | json }}</span>-->

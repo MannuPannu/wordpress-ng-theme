@@ -9,13 +9,6 @@
         <div id="comments">
             <h4>Comments</h4>
             <hr>
-            <div *ngFor="let comment of article.comments">
-                <div style="font-weight: bold">
-                    {{ comment.authorName }}&nbsp;|&nbsp;{{ comment.createdDate.format("YYYY-MM-DD HH:mm") }}
-                </div>
-                <div class="commentArea" [innerHTML]="comment.content">
-                </div>
-                <!--<span>{{ comment | json }}</span>-->
-            </div>
+            <commentlist [comments]="article.comments" [hasParent]="false"></commentlist>
         </div>
     </div>

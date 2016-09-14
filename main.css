@@ -127,6 +127,10 @@ a:hover {
     cursor: pointer;
 }
 
+.addLevelMargin {
+    margin-left: 25px;
+}
+
 /* Toggle menu collapsed */
 @media screen and (max-width:680px) {
   .link:not(:first-child) {display: none;}
