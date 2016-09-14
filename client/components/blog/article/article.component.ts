@@ -10,15 +10,14 @@ import { Router } from '@angular/router';
 })
 export class ArticleComponent implements OnInit{ 
     @Input()
-    article : Article; //todo: Create class for this
+    article : Article; 
     articleDate: string;
     numberOfCommentsStr: string;
 
     constructor(private _blogService: BlogService, private router: Router) { }
 
     ngOnInit(){
-        
-        this.articleDate = moment(this.article.data.date).format("YYYY-MM-DD");
+        this.articleDate = this.article.data.createDate.format("YYYY-MM-DD");
 
         this.numberOfCommentsStr = (this.article.comments.length.toString() 
                                     + " comment" 

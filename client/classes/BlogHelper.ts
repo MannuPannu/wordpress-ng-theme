@@ -1,37 +1,35 @@
+import { ArticleData } from './ArticleData'
+import { Comment } from './Comment'
+import { Article } from './Article'
+
+/* Responsible for creating view models of the data from the wordpress API */
+
 export class BlogHelper {
 
-    constructor() {
+    static createArticle(articleWP: any, commentsWP:any[]) : Article {
+
+        var articleData = new ArticleData(articleWP.id, articleWP.title.rendered, articleWP.slug, articleWP.date, "", "", articleWP.content.rendered);
+
+        var article = new Article(articleData, this.createCommentTree(commentsWP))
+
+        return article;
     }
 
-    createCommentTree(comments : any){
-        // var comments = [{id: 1, content: "hej", parent: 0},
-        //         {id: 32, content: "svar till hej", parent: 1},
-        //         {id: 42, content: "Bra sida!", parent: 0},
-        //         {id: 31, content: "tackar!", parent: 68},
-        //         {id: 12, content: "Ingen orsak!", parent: 31},
-        //         {id: 68, content: "bra blog", parent: 0},
-        //         {id: 8, content: "Inga problem här heller", parent: 31},
-        //         {id: 10, content: "Grym blog", parent: 0}
-        //         ];
+    static createCommentTree(comments : any){
 
         var tree = this.createTree(comments, 0, []);
 
         return tree;
     }
 
-    createTree(comments: any, parent: number, tree: any) {
+    static createTree(comments: any, parent: number, tree: any) {
 
         var childs = comments.filter((c : any) => c.parent === parent);
 
         childs.forEach((c:any) => {
             var grandChilds = comments.filter((gc:any) => gc.parent === c.id);
 
-            tree.push({
-                        id: c.id, 
-                        content: c.content, 
-                        parent: parent, 
-                        childs: this.createTree(comments, c.id, [])
-                    });
+            tree.push(new Comment(c.id, c.post, c.date , c.author_name, c.author_url, c.content.rendered, this.createTree(comments, c.id, [])));
         });
 
         return tree;

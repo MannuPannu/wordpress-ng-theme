@@ -3,6 +3,7 @@ import {Http} from '@angular/http';
 import {Article} from '../classes/Article';
 import 'rxjs/Rx';
 import {Observable} from 'rxjs/Observable';
+import {BlogHelper} from '../classes/BlogHelper';
 
 @Injectable()
 export class BlogService {
@@ -20,9 +21,8 @@ export class BlogService {
                               var _articles = JSON.parse(queue[0]._body);
                               var comments = JSON.parse(queue[1]._body) as any[];
 
-                              _articles.forEach((a:any) => articles.push(new Article(a, comments.filter(c => c.post === a.id) )) );
+                              _articles.forEach((a:any) => articles.push(BlogHelper.createArticle(a, comments.filter(c => c.post === a.id) )) );
                            })
-                                                                
     }
 
     public getArticleBySlug(slug: string){
@@ -30,8 +30,8 @@ export class BlogService {
                              this.getCommentBySlugFromAPI(slug)]).map((r:any) => {
                                 var _article = JSON.parse(r[0]._body)[0];
                                 var comments = JSON.parse(r[1]._body) as any[];
-                                return new Article(_article, comments.filter(c => c.post === _article.id));
-                             })
+                                return BlogHelper.createArticle(_article, comments.filter(c => c.post === _article.id));
+        });
     }
 
     private getArticlesByPageFromAPI(pageIndex: number) {

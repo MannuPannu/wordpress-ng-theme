@@ -1,7 +1,7 @@
-    <h2><a class="articleTitle" (click)="gotoDetailedView()" href="javascript:void(0)" [innerHTML]="article.data.title.rendered"></a></h2>
+    <h2><a class="articleTitle" (click)="gotoDetailedView()" href="javascript:void(0)" [innerHTML]="article.data.title"></a></h2>
     <h6><a (click)="gotoDetailedView()" class="articleDateText">{{ articleDate }}&nbsp;|&nbsp;{{ numberOfCommentsStr }}</a></h6>
     <p>
-        <span [innerHTML]="article.data.content.rendered">
+        <span [innerHTML]="article.data.content">
         </span>
     </p>
     <span>{{ article | json }}</span>

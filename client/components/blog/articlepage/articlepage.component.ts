@@ -23,7 +23,7 @@ export class ArticlePageComponent implements OnInit{
             this._blogService.getArticleBySlug(slug).subscribe((article: Article) => {
                 this.article = article;
 
-                this.articleDate = moment(this.article.data.date).format("YYYY-MM-DD");
+                this.articleDate = moment(this.article.data.createDate).format("YYYY-MM-DD");
 
                 this.numberOfCommentsStr = (this.article.comments.length.toString() 
                                     + " comment" 
