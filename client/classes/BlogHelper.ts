@@ -34,4 +34,10 @@ export class BlogHelper {
 
         return tree;
     }
+
+    static sortCommentTree(comments: Comment[]){
+        var sortedComments = comments.sort((a, b) => a.createdDate - b.createdDate);
+
+        sortedComments.forEach(sc => this.sortCommentTree(sc.childs));
+    }
 }

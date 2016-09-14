@@ -11,11 +11,11 @@
             <hr>
             <div *ngFor="let comment of article.comments">
                 <div style="font-weight: bold">
-                    {{ comment.author_name }}&nbsp;|&nbsp;{{ getCommentDate(comment.date) }}
+                    {{ comment.authorName }}&nbsp;|&nbsp;{{ comment.createdDate.format("YYYY-MM-DD HH:mm") }}
                 </div>
                 <div class="commentArea" [innerHTML]="comment.content">
                 </div>
-                <span>{{ comment | json }}</span>
+                <!--<span>{{ comment | json }}</span>-->
             </div>
         </div>
     </div>
