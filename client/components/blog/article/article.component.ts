@@ -1,7 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { BlogService } from '../../../services/blog.service'
 import {Article} from '../../../classes/Article';
-import { Router } from '@angular/router';
+import { Router,NavigationExtras } from '@angular/router';
+import {BlogHelper} from '../../../classes/BlogHelper';
 
 @Component({
     moduleId: module.id,
@@ -13,19 +14,29 @@ export class ArticleComponent implements OnInit{
     article : Article; 
     articleDate: string;
     numberOfCommentsStr: string;
+    numberOfComments: number;
 
     constructor(private _blogService: BlogService, private router: Router) { }
 
     ngOnInit(){
         this.articleDate = this.article.data.createDate.format("YYYY-MM-DD");
 
-        this.numberOfCommentsStr = (this.article.comments.length.toString() 
-                                    + " comment" 
-                                    + ((this.article.comments.length === 0 || this.article.comments.length > 1) ? "s" : ""));
+        this.numberOfComments = BlogHelper.getNumberOfComments(this.article.comments);
+        
+        this.numberOfCommentsStr = BlogHelper.getNumberOfCommentsString(this.article.comments);
     }
 
-    gotoDetailedView(): void {
-        let link = ['/wordpress/blog/' + this.article.data.slug];
-        this.router.navigate(link);
+    gotoDetailedView(toComments:boolean): void {
+        var link = ['/wordpress/blog/' + this.article.data.slug];
+
+        if(toComments){
+            let navigationExtras: NavigationExtras = {
+                fragment: 'comments'
+            };
+            this.router.navigate(link, navigationExtras);
+        }
+        else{
+            this.router.navigate(link);
+        }
     }
 }

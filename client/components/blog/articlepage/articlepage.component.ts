@@ -19,7 +19,7 @@ export class ArticlePageComponent implements OnInit{
 
     ngOnInit(){
         this.article = null; 
-        var sub = this.route.params.subscribe(params => {
+        this.route.params.subscribe(params => {
             let slug = params['slug']; 
             this._blogService.getArticleBySlug(slug).subscribe((article: Article) => {
                 this.article = article;
@@ -28,11 +28,24 @@ export class ArticlePageComponent implements OnInit{
 
                 this.articleDate = moment(this.article.data.createDate).format("YYYY-MM-DD");
 
-                this.numberOfCommentsStr = (this.article.comments.length.toString() 
-                                    + " comment" 
-                                    + ((this.article.comments.length === 0 || this.article.comments.length > 1) ? "s" : ""));
+                this.numberOfCommentsStr = BlogHelper.getNumberOfCommentsString(this.article.comments);
             });
         });
+    }
+
+    ngAfterViewChecked(){
+        this.route.fragment.subscribe(f => {
+            if(f && f === "comments"){
+                // Workaround to scroll down to comment section! Angular has not fixed this yet.
+                const element:any = document.querySelector("#" + f);
+                element.scrollIntoView(element);
+            }
+        });
+    }
+
+    gotoComments(){
+        const element:any = document.querySelector("#" + "comments");
+        element.scrollIntoView(element); 
     }
 
     getCommentDate(dateStr:string) {

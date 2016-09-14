@@ -40,4 +40,21 @@ export class BlogHelper {
 
         sortedComments.forEach(sc => this.sortCommentTree(sc.childs));
     }
+
+    private static countComments(comments: Comment[], count:number) : number {
+        count += comments.length;
+
+        comments.forEach(c => count += this.countComments(c.childs, 0));
+
+        return count;
+    }
+
+    static getNumberOfComments(comments: Comment[]) {
+        return this.countComments(comments, 0);
+    }
+
+    static getNumberOfCommentsString(comments: Comment[]): string{
+        var numberOfComments = this.getNumberOfComments(comments); 
+        return numberOfComments  + " comment" + ((numberOfComments === 0 || numberOfComments > 1) ? "s" : "");
+    }
 }
