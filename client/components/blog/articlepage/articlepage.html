@@ -1,13 +1,13 @@
-   <div *ngIf="article !== null">
-        <h2 [innerHTML]="article.data.title"></h2>
-        <h6><a (click)="gotoComments()" class="articleDateText">{{ articleDate }}&nbsp;|&nbsp;{{ numberOfCommentsStr }}</a></h6>
-        <p>
-            <span [innerHTML]="article.data.content">
-            </span>
-        </p>
+<div *ngIf="article !== null">
+    <h2 [innerHTML]="article.data.title"></h2>
+    <h6><a (click)="gotoComments()" class="articleDateText">{{ articleDate }}&nbsp;|&nbsp;{{ numberOfCommentsStr }}</a></h6>
+    <p>
+        <span [innerHTML]="article.data.content">
+        </span>
+    </p>
 
-        <h4>Comments</h4>
-        <hr>
-        <commentlist [comments]="article.comments" [hasParent]="false"></commentlist>
-    </div>
     <div id="comments"></div>
+    <h4>Comments</h4>
+    <hr>
+    <commentlist [comments]="article.comments" [hasParent]="false"></commentlist>
+</div>

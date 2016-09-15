@@ -38,14 +38,20 @@ export class ArticlePageComponent implements OnInit{
             if(f && f === "comments"){
                 // Workaround to scroll down to comment section! Angular has not fixed this yet.
                 const element:any = document.querySelector("#" + f);
-                element.scrollIntoView(element);
+                debugger;
+                if(element){
+                    element.scrollIntoView(element);
+                }
             }
         });
     }
 
     gotoComments(){
+        debugger;
         const element:any = document.querySelector("#" + "comments");
-        element.scrollIntoView(element); 
+        if(element){
+            element.scrollIntoView(element);
+        }
     }
 
     getCommentDate(dateStr:string) {
