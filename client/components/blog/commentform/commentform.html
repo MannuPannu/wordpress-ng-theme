@@ -1,11 +1,23 @@
-<form>
+<form (ngSubmit)="onSubmit()" #commentForm="ngForm">
     <label for="message">Message</label>
-    <textarea class="u-full-width" placeholder="Hello!" id="message"></textarea>
-    <label for="name">Name</label>
-    <input class="u-full-width" type="text" placeholder="Your name" id="name">
-    <label for="emailInput">Your email</label>
-    <input class="u-full-width" type="email" placeholder="foo@bar.se" id="emailInput">
+    <textarea class="u-full-width" placeholder="Hello!" id="message" name="message" [(ngModel)]="comment.content"></textarea>
+
+    <label for="name">*Name</label>
+    <input class="u-full-width" type="text" placeholder="Your name" id="name" name="name" [(ngModel)]="comment.authorName" #name="ngModel" required>
+
+    <!--<div [hidden]="name.valid || name.pristine" style="color: red;" > 
+          Name is required
+    </div>-->
+
+    <label for="emailInput">*Email</label>
+    <input class="u-full-width" type="email" placeholder="foo@bar.se" id="emailInput" name="emailInput" [(ngModel)]="comment.authorEmail" #email="ngModel" required>
+
+    <!--<div [hidden]="email.valid || email.pristine" style="color: red;" > 
+          Email is required. It will be hidden.
+    </div>-->
+
     <label for="websiteurl">Web site</label>
-    <input class="u-full-width" type="text" placeholder="Your web site" id="websiteurl">
-    <input class="button-primary" type="submit" value="Comment!">
+    <input class="u-full-width" type="text" placeholder="Your web site" id="websiteurl" name="websiteurl" [(ngModel)]="comment.authorUrl">
+
+    <input class="button-primary" type="submit" value="Send comment" [disabled]="!commentForm.form.valid">
 </form>

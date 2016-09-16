@@ -29,7 +29,7 @@ export class BlogHelper {
         childs.forEach((c:any) => {
             var grandChilds = comments.filter((gc:any) => gc.parent === c.id);
 
-            tree.push(new Comment(c.id, c.post, c.date , c.author_name, c.author_url, c.content.rendered, this.createTree(comments, c.id, [])));
+            tree.push(new Comment(c.id, c.post, c.date , c.author_name, c.author_email, c.author_url, c.content.rendered, this.createTree(comments, c.id, [])));
         });
 
         return tree;

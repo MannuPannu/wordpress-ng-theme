@@ -1,6 +1,7 @@
 import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
+import { FormsModule } from '@angular/forms';
 
 import { AppComponent }  from '../components/app/app.component';
 import { ArticleComponent }  from '../components/blog/article/article.component';
@@ -10,7 +11,7 @@ import { CommentFormComponent }  from '../components/blog/commentform/commentfor
 import { routing, routedComponents } from '../app.routing';
 
 @NgModule({
-  imports: [ BrowserModule, HttpModule, routing ],
+  imports: [ BrowserModule, HttpModule, routing , FormsModule],
   declarations: [ AppComponent, routedComponents, ArticleComponent, CommentListComponent, CommentFormComponent ],
   bootstrap: [ AppComponent ]
 })

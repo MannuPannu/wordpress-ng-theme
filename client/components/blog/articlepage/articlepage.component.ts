@@ -14,10 +14,13 @@ export class ArticlePageComponent implements OnInit{
     article: Article;
     articleDate: string;
     numberOfCommentsStr: string;
+
+    hasScrolled: boolean;
  
     constructor(private _blogService: BlogService, private route: ActivatedRoute) { }
 
     ngOnInit(){
+        this.hasScrolled = false;
         this.article = null; 
         this.route.params.subscribe(params => {
             let slug = params['slug']; 
@@ -38,8 +41,9 @@ export class ArticlePageComponent implements OnInit{
             if(f && f === "comments"){
                 // Workaround to scroll down to comment section! Angular has not fixed this yet.
                 const element:any = document.querySelector("#" + f);
-                if(element){
+                if(element && !this.hasScrolled){
                     element.scrollIntoView(element);
+                    this.hasScrolled = true;
                 }
             }
         });
@@ -49,6 +53,7 @@ export class ArticlePageComponent implements OnInit{
         const element:any = document.querySelector("#" + "comments");
         if(element){
             element.scrollIntoView(element);
+            this.hasScrolled = true;
         }
     }
 
