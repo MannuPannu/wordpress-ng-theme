@@ -5,12 +5,13 @@ import { HttpModule } from '@angular/http';
 import { AppComponent }  from '../components/app/app.component';
 import { ArticleComponent }  from '../components/blog/article/article.component';
 import { CommentListComponent }  from '../components/blog/commentlist/commentlist.component';
+import { CommentFormComponent }  from '../components/blog/commentform/commentform.component';
 
 import { routing, routedComponents } from '../app.routing';
 
 @NgModule({
   imports: [ BrowserModule, HttpModule, routing ],
-  declarations: [ AppComponent, routedComponents, ArticleComponent, CommentListComponent ],
+  declarations: [ AppComponent, routedComponents, ArticleComponent, CommentListComponent, CommentFormComponent ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }
