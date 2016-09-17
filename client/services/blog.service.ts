@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
-import {Http} from '@angular/http';
+import {Http, URLSearchParams} from '@angular/http';
 import {Article} from '../classes/Article';
+import {Comment} from '../classes/Comment';
 import 'rxjs/Rx';
 import {Observable} from 'rxjs/Observable';
 import {BlogHelper} from '../classes/BlogHelper';
@@ -34,12 +35,24 @@ export class BlogService {
         });
     }
 
+    public sendComment(comment: Comment) {
+
+        let params: URLSearchParams = new URLSearchParams();
+        params.set('author_name', comment.authorName);
+        params.set('content', comment.content);
+        params.set('author_url', comment.authorUrl);
+        params.set('author_email', comment.authorEmail);
+        params.set('post', comment.articleId.toString());
+
+        return this._http.post(this._wpBase + 'comments/', params);
+    }
+
     private getArticlesByPageFromAPI(pageIndex: number) {
         return this._http.get(this._wpBase + 'posts/?page=' + pageIndex);
     }
 
     private getCommentsByPageFromAPI(pageId: number) {
-        return this._http.get(this._wpBase + 'comments/?page=' + pageId);
+        return this._http.get(this._wpBase + 'comments/?page=' + pageId + "&per_page=20");
     }
 
     private getArticleBySlugFromAPI(slug: string) {
@@ -47,6 +60,6 @@ export class BlogService {
     }
 
     private getCommentBySlugFromAPI(slug: string) {
-        return this._http.get(this._wpBase + 'comments/?slug=' + slug);
+        return this._http.get(this._wpBase + 'comments/?slug=' + slug + "&per_page=20");
     }
 }

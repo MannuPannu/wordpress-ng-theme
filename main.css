@@ -201,7 +201,6 @@ a:hover {
     }
 }
 
-
 /* Forms css here */
 
 .ng-valid[required], .ng-valid.required  {
@@ -210,4 +209,23 @@ a:hover {
 
 .ng-invalid:not(form)  {
   border-left: 5px solid #a94442; /* red */
+}
+
+input.button-primary[disabled], input.button-primary[disabled]:hover {
+    background-color: lightgrey;
+    border-color: lightgrey;
+    opacity: 0.9;
+}
+
+.alert-success {
+    color: #3c763d;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+}
+
+.alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
 }

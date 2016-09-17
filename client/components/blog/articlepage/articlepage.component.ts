@@ -3,6 +3,7 @@ import {Article} from '../../../classes/Article';
 import { BlogService } from '../../../services/blog.service'
 import { ActivatedRoute, Params } from '@angular/router';
 import {BlogHelper} from '../../../classes/BlogHelper';
+import { Comment } from '../../../classes/Comment';
 
 @Component({
     moduleId: module.id,
@@ -14,6 +15,7 @@ export class ArticlePageComponent implements OnInit{
     article: Article;
     articleDate: string;
     numberOfCommentsStr: string;
+    newComment: Comment;
 
     hasScrolled: boolean;
  
@@ -32,6 +34,7 @@ export class ArticlePageComponent implements OnInit{
                 this.articleDate = moment(this.article.data.createDate).format("YYYY-MM-DD");
 
                 this.numberOfCommentsStr = BlogHelper.getNumberOfCommentsString(this.article.comments);
+                this.newComment = new Comment(-1, this.article.data.id, "", "", "", "", "", []);
             });
         });
     }
