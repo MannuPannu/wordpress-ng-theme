@@ -9,8 +9,9 @@
     <div id="comments"></div>
     <h4>Comments</h4>
     <hr>
-    <commentlist [comments]="article.comments" [hasParent]="false"></commentlist>
-    <hr>
-    <h4>Add comment</h4>
-    <commentform id="addComment" [comment]="newComment"></commentform>
+    <commentlist [comments]="article.comments" (replyFormVisibleToggle)="replyFormVisibleToggle($event)" [hasParent]="false"></commentlist>
+    <div *ngIf="!replyFormIsVisible">
+        <h4>Add comment</h4>
+        <commentform id="addComment" [comment]="newComment"></commentform>
+    </div>
 </div>

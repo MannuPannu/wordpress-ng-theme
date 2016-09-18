@@ -201,6 +201,11 @@ a:hover {
     }
 }
 
+/* Comments */
+a.commentReply {
+    font-size: 1.5rem;
+}
+
 /* Forms css here */
 
 .ng-valid[required], .ng-valid.required  {

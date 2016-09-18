@@ -4,7 +4,17 @@
         {{ comment.authorName }}&nbsp;|&nbsp;{{ comment.createdDate.format("YYYY-MM-DD HH:mm") }}
     </div>
     <div class="commentArea" [innerHTML]="comment.content"></div>
-    <commentlist *ngIf="comment.childs.length > 0" [comments]="comment.childs" [hasParent]="true"></commentlist>
+
+    <!-- Reply to link and reply form -->
+    <h4 *ngIf="comment.replyFormIsOpened">{{ 'Reply to ' + comment.authorName }}</h4>
+    <a class="commentReply" (click)="toggleReplyToCommentForm(comment)" href="javascript:void(0);">
+        {{ comment.replyFormIsOpened ? ('Close') : 'Reply' }}
+    </a>
+
+    <commentform *ngIf="comment.replyFormIsOpened" [comment]="replyComment"></commentform>
+    <!-- -->
+
+    <hr>
+    <commentlist *ngIf="comment.childs.length > 0" [comments]="comment.childs" (replyFormVisibleToggle)="replyFormVisibleToggle.emit($event)" [hasParent]="true"></commentlist>
 </div>
-<!--<span>{{ comment | json }}</span>-->
 

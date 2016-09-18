@@ -49,6 +49,15 @@ export class BlogHelper {
         return count;
     }
 
+    public static closeAllReplyFormsExceptId(comments: Comment[], commentId: number){
+        comments.forEach(c => { 
+            if(c.id !== commentId) { 
+                c.replyFormIsOpened = false; 
+            }
+             this.closeAllReplyFormsExceptId(c.childs, commentId);
+        })
+    }
+
     static getNumberOfComments(comments: Comment[]) {
         return this.countComments(comments, 0);
     }

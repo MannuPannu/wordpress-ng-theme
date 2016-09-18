@@ -8,6 +8,8 @@ export class Comment {
     childs: Comment[];
     createdDate: any;
 
+    replyFormIsOpened: boolean;
+
     constructor(id: number, articleId:number, createdDate:string, authorName:string, authorEmail: string, authorUrl:string, content:string, childs:Comment[]) {
         this.id = id;
         this.articleId = articleId;
@@ -17,5 +19,7 @@ export class Comment {
         this.authorUrl = authorUrl;
         this.content = content;
         this.childs = childs;
+
+        this.replyFormIsOpened = false; //Default
     }
 }

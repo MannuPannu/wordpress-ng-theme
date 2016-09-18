@@ -18,10 +18,12 @@ export class ArticlePageComponent implements OnInit{
     newComment: Comment;
 
     hasScrolled: boolean;
+    replyFormIsVisible: boolean;
  
     constructor(private _blogService: BlogService, private route: ActivatedRoute) { }
 
     ngOnInit(){
+        this.replyFormIsVisible = false;
         this.hasScrolled = false;
         this.article = null; 
         this.route.params.subscribe(params => {
@@ -62,5 +64,16 @@ export class ArticlePageComponent implements OnInit{
 
     getCommentDate(dateStr:string) {
         return moment(dateStr).format("YYYY-MM-DD HH:mm");
+    }
+
+    replyFormVisibleToggle(event: any){
+
+        if(event.isVisible){
+            BlogHelper.closeAllReplyFormsExceptId(this.article.comments, event.commentId);
+            this.replyFormIsVisible = true;
+        }
+        else{
+            this.replyFormIsVisible = false;
+        }
     }
 }

@@ -46,6 +46,10 @@ export class BlogService {
 
         return this._http.post(this._wpBase + 'comments/', params);
     }
+    
+    public sendReplyComment(comment: Comment, parentId: number) {
+
+    }
 
     private getArticlesByPageFromAPI(pageIndex: number) {
         return this._http.get(this._wpBase + 'posts/?page=' + pageIndex);
