@@ -47,8 +47,16 @@ export class BlogService {
         return this._http.post(this._wpBase + 'comments/', params);
     }
     
-    public sendReplyComment(comment: Comment, parentId: number) {
+    public sendCommentWithParent(comment: Comment, parentId: number) {
+        let params: URLSearchParams = new URLSearchParams();
+        params.set('author_name', comment.authorName);
+        params.set('content', comment.content);
+        params.set('author_url', comment.authorUrl);
+        params.set('author_email', comment.authorEmail);
+        params.set('post', comment.articleId.toString());
+        params.set('parent', parentId.toString());
 
+        return this._http.post(this._wpBase + 'comments/', params);
     }
 
     private getArticlesByPageFromAPI(pageIndex: number) {

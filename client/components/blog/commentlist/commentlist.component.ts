@@ -14,6 +14,8 @@ export class CommentListComponent implements OnInit {
     hasParent : boolean;
     @Output()
     replyFormVisibleToggle = new EventEmitter();
+    @Output()
+    commentSent = new EventEmitter();
 
     articleId: number;
     replyComment: Comment;
@@ -35,5 +37,9 @@ export class CommentListComponent implements OnInit {
 
         //Close other comments replyforms
         this.replyFormVisibleToggle.emit({commentId: comment.id, isVisible: comment.replyFormIsOpened});
+   }
+
+   commentSentInForm(event: Object){
+       this.commentSent.emit(event);
    }
 }

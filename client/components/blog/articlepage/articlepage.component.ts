@@ -76,4 +76,11 @@ export class ArticlePageComponent implements OnInit{
             this.replyFormIsVisible = false;
         }
     }
+
+    commentSent(event: boolean){
+        if(event){
+            BlogHelper.closeAllReplyFormsExceptId(this.article.comments, -1);
+            this.replyFormIsVisible = false;
+        }
+    }
 }

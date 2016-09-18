@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Comment } from '../../../classes/Comment';
 import { BlogService } from '../../../services/blog.service'
 
@@ -10,6 +10,13 @@ import { BlogService } from '../../../services/blog.service'
 export class CommentFormComponent implements OnInit { 
     @Input()
     comment : Comment;
+
+    @Input()
+    parentId: number = -1;
+
+    @Output()
+    commentSent = new EventEmitter();
+
     submitDisabled: boolean;
     successMessageVisible: boolean;
  
@@ -24,12 +31,24 @@ export class CommentFormComponent implements OnInit {
 
     onSubmit(){
         this.submitDisabled = true;
-        this._blogService.sendComment(this.comment).subscribe(r => {
-            this.clearComment();
-            this.showSuccessMessage();
-        }, error => {
-           console.log("An error occured while sending the comment", error.json()); 
-        });
+
+        if(this.parentId > 0)
+        {
+             this._blogService.sendCommentWithParent(this.comment, this.parentId).subscribe(r => {
+                this.clearComment();
+                this.showSuccessMessage();
+            }, error => {
+                console.log("An error occured while sending the comment", error.json()); 
+            });
+        }
+        else {
+            this._blogService.sendComment(this.comment).subscribe(r => {
+                this.clearComment();
+                this.showSuccessMessage();
+            }, error => {
+                console.log("An error occured while sending the comment", error.json()); 
+            });
+        }
     }
 
     clearComment() {
@@ -41,6 +60,7 @@ export class CommentFormComponent implements OnInit {
         setTimeout(() => {
            this.successMessageVisible = false; 
             this.submitDisabled = false;
+            this.commentSent.emit(true);
         }
         , 2000);
     }

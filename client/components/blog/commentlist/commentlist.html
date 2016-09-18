@@ -11,10 +11,11 @@
         {{ comment.replyFormIsOpened ? ('Close') : 'Reply' }}
     </a>
 
-    <commentform *ngIf="comment.replyFormIsOpened" [comment]="replyComment"></commentform>
+    <commentform *ngIf="comment.replyFormIsOpened" [comment]="replyComment" [parentId]="comment.id" (commentSent)="commentSentInForm($event)"></commentform>
     <!-- -->
 
     <hr>
-    <commentlist *ngIf="comment.childs.length > 0" [comments]="comment.childs" (replyFormVisibleToggle)="replyFormVisibleToggle.emit($event)" [hasParent]="true"></commentlist>
+    <commentlist *ngIf="comment.childs.length > 0" [comments]="comment.childs" (replyFormVisibleToggle)="replyFormVisibleToggle.emit($event)" 
+        [hasParent]="true" (commentSent)="commentSent.emit($event)"></commentlist>
 </div>
 
