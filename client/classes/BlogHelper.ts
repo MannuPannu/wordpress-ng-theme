@@ -1,6 +1,7 @@
 import { ArticleData } from './ArticleData'
 import { Comment } from './Comment'
 import { Article } from './Article'
+import {CookieService, CookieOptionsArgs} from 'angular2-cookie/core';
 
 /* Responsible for creating view models of the data from the wordpress API */
 
@@ -39,6 +40,15 @@ export class BlogHelper {
         return tree;
     }
 
+    static createCommentCookie(commentObj: any, cookieService: CookieService){
+        var obj = JSON.parse(commentObj._body); 
+        var comment = new Comment(obj.id, obj.post, obj.date, obj.author_name, "", obj.author_url, obj.content.rendered, []);
+
+        var options:CookieOptionsArgs = {"expires" : moment().add(1, 'year').toDate()};
+
+        cookieService.putObject("commentCookie", comment, options);
+    }
+    
     static sortCommentTree(comments: Comment[]){
         var sortedComments = comments.sort((a, b) => a.createdDate - b.createdDate);
 

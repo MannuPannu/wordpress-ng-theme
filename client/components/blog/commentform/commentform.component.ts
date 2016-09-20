@@ -1,6 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Comment } from '../../../classes/Comment';
 import { BlogService } from '../../../services/blog.service'
+import {BlogHelper} from '../../../classes/BlogHelper';
+import {CookieService} from 'angular2-cookie/core';
+
 
 @Component({
     moduleId: module.id,
@@ -20,7 +23,7 @@ export class CommentFormComponent implements OnInit {
     submitDisabled: boolean;
     successMessageVisible: boolean;
  
-    constructor(private _blogService: BlogService) { }
+    constructor(private _blogService: BlogService, private _cookieService: CookieService) { }
 
     ngOnInit(){
         this.submitDisabled = false;
@@ -35,6 +38,7 @@ export class CommentFormComponent implements OnInit {
         if(this.parentId > 0)
         {
              this._blogService.sendCommentWithParent(this.comment, this.parentId).subscribe(r => {
+                BlogHelper.createCommentCookie(r, this._cookieService);
                 this.clearComment();
                 this.showSuccessMessage();
             }, error => {
@@ -43,6 +47,7 @@ export class CommentFormComponent implements OnInit {
         }
         else {
             this._blogService.sendComment(this.comment).subscribe(r => {
+                BlogHelper.createCommentCookie(r, this._cookieService);
                 this.clearComment();
                 this.showSuccessMessage();
             }, error => {
