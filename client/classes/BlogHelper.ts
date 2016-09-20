@@ -15,6 +15,10 @@ export class BlogHelper {
         return article;
     }
 
+    static createComments(commentsWP: any[]) : Comment[] {
+        return this.createCommentTree(commentsWP);
+    }
+
     static createCommentTree(comments : any){
 
         var tree = this.createTree(comments, 0, []);

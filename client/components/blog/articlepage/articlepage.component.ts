@@ -31,6 +31,10 @@ export class ArticlePageComponent implements OnInit{
             this._blogService.getArticleBySlug(slug).subscribe((article: Article) => {
                 this.article = article;
 
+                this._blogService.getCommentsByArticleId(article.data.id).subscribe((comments: Comment[]) => {
+                    this.article.comments = comments;
+                });
+
                 BlogHelper.sortCommentTree(article.comments);
 
                 this.articleDate = moment(this.article.data.createDate).format("YYYY-MM-DD");

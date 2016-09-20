@@ -14,7 +14,6 @@ export class BlogService {
     constructor(private _http: Http) { }
 
     public populateArticles(pageIndex : number, articles:Article[]) {
-
         //Gets articles and comments from API then joins them to create Article objects
         Observable.forkJoin([this.getArticlesByPageFromAPI(pageIndex), 
                              this.getCommentsByPageFromAPI(pageIndex)])
@@ -26,12 +25,18 @@ export class BlogService {
                            })
     }
 
-    public getArticleBySlug(slug: string){
-        return Observable.forkJoin([this.getArticleBySlugFromAPI(slug), 
-                             this.getCommentBySlugFromAPI(slug)]).map((r:any) => {
-                                var _article = JSON.parse(r[0]._body)[0];
-                                var comments = JSON.parse(r[1]._body) as any[];
-                                return BlogHelper.createArticle(_article, comments.filter(c => c.post === _article.id));
+    public getArticleBySlug(slug: string) {
+        
+        return this.getArticleBySlugFromAPI(slug).map((r:any) => {
+            var _article = JSON.parse(r._body)[0];
+            return BlogHelper.createArticle(_article, []);
+        });
+    }
+
+    public getCommentsByArticleId(articleId: number){
+        return this.getCommentsByArticleFromAPI(articleId).map((r:any) => {
+            var comments = JSON.parse(r._body) as any[];
+            return BlogHelper.createComments(comments);
         });
     }
 
@@ -67,11 +72,11 @@ export class BlogService {
         return this._http.get(this._wpBase + 'comments/?page=' + pageId + "&per_page=20");
     }
 
-    private getArticleBySlugFromAPI(slug: string) {
+    private getArticleBySlugFromAPI(slug: string): Observable<any> {
         return this._http.get(this._wpBase + 'posts/?slug=' + slug);
     }
 
-    private getCommentBySlugFromAPI(slug: string) {
-        return this._http.get(this._wpBase + 'comments/?slug=' + slug + "&per_page=20");
+    private getCommentsByArticleFromAPI(articleId: number) {
+        return this._http.get(this._wpBase + 'comments/?post=' + articleId + "&per_page=20");
     }
 }
