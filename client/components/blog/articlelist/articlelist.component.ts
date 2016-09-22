@@ -3,6 +3,7 @@ import {Http} from '@angular/http';
 import { BlogService } from '../../../services/blog.service'
 import { ArticleComponent } from '../article/article.component'
 import {Article} from '../../../classes/Article';
+import { ActivatedRoute, Params, Router, NavigationExtras } from '@angular/router';
 
 @Component({
     moduleId: module.id,
@@ -20,27 +21,28 @@ export class ArticleListComponent implements OnInit {
 
     totalArticleCount: number;
 
-    constructor(private _http: Http, private _blogService: BlogService) { }
+    constructor(private _http: Http, private _blogService: BlogService, private route: ActivatedRoute, private router: Router) { }
 
     ngOnInit(){
-        this.articles = [];
+        this.route.params.subscribe(params => {
+            this.articles = [];
 
-        this._blogService.getArticleTotalCount().subscribe((totArticleCount:number) => {
-            this.totalArticleCount = totArticleCount;
-            this._blogService.populateArticles(this.pageIndex, this.articles, this.articlePerPage);
+            var pageParam = params['page']; 
 
-        });;
+            if(pageParam){
+                this.pageIndex = pageParam;
+            }
+
+            this._blogService.getArticleTotalCount().subscribe((totArticleCount:number) => {
+                this.totalArticleCount = totArticleCount;
+                this._blogService.populateArticles(this.pageIndex, this.articles, this.articlePerPage);
+
+            });
+
+        });
     }
 
     pageClicked(pageIndex: number){
-        this.articles = [];
-
-        this._blogService.getArticleTotalCount().subscribe((totArticleCount:number) => {
-            this.totalArticleCount = totArticleCount;
-            this._blogService.populateArticles(this.pageIndex, this.articles, this.articlePerPage);
-
-        });;
-
-        this.pageIndex = pageIndex;
+        this.router.navigate(['/wordpress/blog', {page: pageIndex}]);
     }
 }

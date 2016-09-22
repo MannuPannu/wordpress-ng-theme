@@ -11,7 +11,7 @@
         </div>
         <div class="links">
             <div class="link">
-                <a routerLink="/wordpress/blog" routerLinkActive="active">Blog</a>
+                <a [routerLink]="['/wordpress/blog', {page: 1}]" routerLinkActive="active">Blog</a>
             </div>
             <div class="link">
                 <a routerLink="/wordpress/games" routerLinkActive="active">Games</a>
