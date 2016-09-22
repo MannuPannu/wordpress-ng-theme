@@ -20,7 +20,7 @@ export class ArticlePageComponent implements OnInit{
 
     hasScrolled: boolean;
     replyFormIsVisible: boolean;
- 
+
     constructor(private _blogService: BlogService, private route: ActivatedRoute, private _cookieService: CookieService) { }
 
     ngOnInit(){

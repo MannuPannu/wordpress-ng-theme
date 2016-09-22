@@ -13,9 +13,15 @@ export class BlogService {
 
     constructor(private _http: Http) { }
 
-    public populateArticles(pageIndex : number, articles:Article[]) {
+    public getArticleTotalCount(){
+        return this._http.get(this._wpBase + 'posts').map((r: any) => 
+            JSON.parse(r._body).length
+        )
+    }
+
+    public populateArticles(pageIndex : number, articles:Article[], perPage: number) {
         //Gets articles and comments from API then joins them to create Article objects
-        Observable.forkJoin([this.getArticlesByPageFromAPI(pageIndex), 
+        Observable.forkJoin([this.getArticlesByPageFromAPI(pageIndex, perPage), 
                              this.getCommentsByPageFromAPI(pageIndex)])
                            .subscribe((queue: any) => {
                               var _articles = JSON.parse(queue[0]._body);
@@ -64,8 +70,8 @@ export class BlogService {
         return this._http.post(this._wpBase + 'comments/', params);
     }
 
-    private getArticlesByPageFromAPI(pageIndex: number) {
-        return this._http.get(this._wpBase + 'posts/?page=' + pageIndex);
+    private getArticlesByPageFromAPI(pageIndex: number, perPage: number) {
+        return this._http.get(this._wpBase + 'posts/?page=' + pageIndex + "&per_page=" + perPage);
     }
 
     private getCommentsByPageFromAPI(pageId: number) {

@@ -1,3 +1,4 @@
 <div *ngFor="let article of articles">
     <article-component [article]="article"></article-component>
 </div>
+<pager (pageClicked)="pageClicked($event)" *ngIf="articles.length > 0" [itemsPerPage]="articlePerPage" [numberOfItems]="totalArticleCount" [pageIndex]="pageIndex"></pager>

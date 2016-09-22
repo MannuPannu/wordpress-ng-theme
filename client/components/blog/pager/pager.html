@@ -1,0 +1,16 @@
+<div class="pager">
+    <a class="pageItem" *ngIf="pageIndex > 1" href="javascript:void(0)" (click)="gotoPreviousPage()"><</a>
+
+    <div *ngFor="let page of pages" class="pageItem">
+        <h4>
+
+            <a *ngIf="!page.isSelected" href="javascript:void(0)" (click)="gotoPage(page.pageIndex)">{{ page.pageIndex}}</a>
+
+            <span *ngIf="page.isSelected">
+                {{ page.pageIndex }}
+            </span>
+        </h4>
+    </div>
+
+    <a *ngIf="pageIndex != pages.length" class="pageItem" href="javascript:void(0)" (click)="gotoNextPage()">></a>
+</div>

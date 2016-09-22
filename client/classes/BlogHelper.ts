@@ -81,7 +81,7 @@ export class BlogHelper {
         if(commentsCookieModels){ //Cookie exists
             commentsCookieModels.push(commentCookie);
 
-           var options:CookieOptionsArgs = {"expires" : moment().add(1, 'year').toDate()};
+           var options:CookieOptionsArgs = {"expires" : moment().add(1, 'day').toDate()};
            cookieService.putObject("commentCookie", commentsCookieModels, options)
 
         }else{ //Create new commentCokie
@@ -89,7 +89,7 @@ export class BlogHelper {
             commentsCookieModels = [];
             commentsCookieModels.push(commentCookie);
 
-            var options:CookieOptionsArgs = {"expires": moment().add(1, 'year').toDate()};
+            var options:CookieOptionsArgs = {"expires": moment().add(1, 'day').toDate()};
 
             cookieService.putObject("commentCookie", commentsCookieModels, options);
         }
@@ -113,7 +113,7 @@ export class BlogHelper {
 
             commentsCookieModels = commentsCookieModels.filter(x => !commentIds.some(cId => cId == x.id));
 
-            var options:CookieOptionsArgs = {"expires": moment().add(1, 'year').toDate()};
+            var options:CookieOptionsArgs = {"expires": moment().add(1, 'day').toDate()};
 
             cookieService.putObject("commentCookie", commentsCookieModels, options);
         }
