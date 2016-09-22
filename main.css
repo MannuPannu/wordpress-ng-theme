@@ -206,6 +206,10 @@ a.commentReply {
     font-size: 1.5rem;
 }
 
+.waitingValidation {
+    color: green;
+}
+
 /* Forms css here */
 
 .ng-valid[required], .ng-valid.required  {

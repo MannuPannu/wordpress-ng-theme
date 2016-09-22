@@ -9,7 +9,7 @@
     <div id="comments"></div>
     <h4>Comments</h4>
     <hr>
-    <commentlist *ngIf="article.comments.length > 0" [comments]="article.comments" (replyFormVisibleToggle)="replyFormVisibleToggle($event)" [hasParent]="false" (commentSent)="commentSent($event)" ></commentlist>
+    <commentlist *ngIf="article.comments.length > 0" [comments]="article.comments" (replyFormVisibleToggle)="replyFormVisibleToggle($event)" (commentSent)="commentSent($event)" ></commentlist>
     <div *ngIf="!replyFormIsVisible">
         <h4>Add comment</h4>
         <commentform id="addComment" [comment]="newComment" (commentSent)="commentSent($event)"></commentform>

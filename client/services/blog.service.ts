@@ -36,12 +36,12 @@ export class BlogService {
     public getCommentsByArticleId(articleId: number){
         return this.getCommentsByArticleFromAPI(articleId).map((r:any) => {
             var comments = JSON.parse(r._body) as any[];
+
             return BlogHelper.createComments(comments);
         });
     }
 
     public sendComment(comment: Comment) {
-
         let params: URLSearchParams = new URLSearchParams();
         params.set('author_name', comment.authorName);
         params.set('content', comment.content);

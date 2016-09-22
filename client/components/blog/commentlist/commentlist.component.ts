@@ -11,7 +11,7 @@ export class CommentListComponent implements OnInit {
     @Input()
     comments : Comment[];
     @Input()
-    hasParent : boolean;
+    level : number = 0
     @Output()
     replyFormVisibleToggle = new EventEmitter();
     @Output()

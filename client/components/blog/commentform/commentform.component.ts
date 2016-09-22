@@ -4,6 +4,7 @@ import { BlogService } from '../../../services/blog.service'
 import {BlogHelper} from '../../../classes/BlogHelper';
 import {CookieService} from 'angular2-cookie/core';
 
+import { CommentCookieModel } from '../../../classes/CommentCookieModel'
 
 @Component({
     moduleId: module.id,
@@ -38,7 +39,7 @@ export class CommentFormComponent implements OnInit {
         if(this.parentId > 0)
         {
              this._blogService.sendCommentWithParent(this.comment, this.parentId).subscribe(r => {
-                BlogHelper.createCommentCookie(r, this._cookieService);
+                BlogHelper.addCommentToCookie(r, this.parentId, this._cookieService);
                 this.clearComment();
                 this.showSuccessMessage();
             }, error => {
@@ -47,7 +48,7 @@ export class CommentFormComponent implements OnInit {
         }
         else {
             this._blogService.sendComment(this.comment).subscribe(r => {
-                BlogHelper.createCommentCookie(r, this._cookieService);
+                BlogHelper.addCommentToCookie(r, 0, this._cookieService);
                 this.clearComment();
                 this.showSuccessMessage();
             }, error => {

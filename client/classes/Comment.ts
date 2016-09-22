@@ -1,24 +1,18 @@
 export class Comment {
-    id: number;
-    articleId: number;
-    authorName: string;
-    authorEmail: string;
-    authorUrl: string;
-    content: string;
-    childs: Comment[];
     createdDate: any;
 
     replyFormIsOpened: boolean;
 
-    constructor(id: number, articleId:number, createdDate:string, authorName:string, authorEmail: string, authorUrl:string, content:string, childs:Comment[]) {
-        this.id = id;
-        this.articleId = articleId;
+    constructor(public id: number, 
+                public articleId:number, 
+                createdDate:string, 
+                public authorName:string, 
+                public authorEmail: string, 
+                public authorUrl:string, 
+                public content:string, 
+                public childs:Comment[]) {
+                    
         this.createdDate = moment(createdDate);
-        this.authorName = authorName;
-        this.authorEmail = authorEmail;
-        this.authorUrl = authorUrl;
-        this.content = content;
-        this.childs = childs;
 
         this.replyFormIsOpened = false; //Default
     }

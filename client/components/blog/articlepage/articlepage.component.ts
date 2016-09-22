@@ -4,6 +4,7 @@ import { BlogService } from '../../../services/blog.service'
 import { ActivatedRoute, Params } from '@angular/router';
 import {BlogHelper} from '../../../classes/BlogHelper';
 import { Comment } from '../../../classes/Comment';
+import {CookieService} from 'angular2-cookie/core';
 
 @Component({
     moduleId: module.id,
@@ -20,9 +21,13 @@ export class ArticlePageComponent implements OnInit{
     hasScrolled: boolean;
     replyFormIsVisible: boolean;
  
-    constructor(private _blogService: BlogService, private route: ActivatedRoute) { }
+    constructor(private _blogService: BlogService, private route: ActivatedRoute, private _cookieService: CookieService) { }
 
     ngOnInit(){
+        this.initArticle();
+    }
+
+    initArticle() {
         this.replyFormIsVisible = false;
         this.hasScrolled = false;
         this.article = null; 
@@ -33,13 +38,21 @@ export class ArticlePageComponent implements OnInit{
 
                 this._blogService.getCommentsByArticleId(article.data.id).subscribe((comments: Comment[]) => {
                     this.article.comments = comments;
-                });
 
-                BlogHelper.sortCommentTree(article.comments);
+                    BlogHelper.removeCommentsFromCookie(BlogHelper.getCommentIds(comments), this._cookieService); //Remove those comments that has been approved
+
+                    var cookieComments = BlogHelper.getCommentsFromCookie(this._cookieService, this.article.data.id);
+
+                    cookieComments.forEach(cc => {
+                        BlogHelper.addCookieCommentToCommentTree(comments, cc);
+                    });
+
+                    this.numberOfCommentsStr = BlogHelper.getNumberOfCommentsString(this.article.comments);
+                    BlogHelper.sortCommentTree(article.comments);
+                });
 
                 this.articleDate = moment(this.article.data.createDate).format("YYYY-MM-DD");
 
-                this.numberOfCommentsStr = BlogHelper.getNumberOfCommentsString(this.article.comments);
                 this.newComment = new Comment(-1, this.article.data.id, "", "", "", "", "", []);
             });
         });
@@ -83,8 +96,7 @@ export class ArticlePageComponent implements OnInit{
 
     commentSent(event: boolean){
         if(event){
-            BlogHelper.closeAllReplyFormsExceptId(this.article.comments, -1);
-            this.replyFormIsVisible = false;
+            this.initArticle();
         }
     }
 }

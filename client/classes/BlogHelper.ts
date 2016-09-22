@@ -1,5 +1,6 @@
 import { ArticleData } from './ArticleData'
 import { Comment } from './Comment'
+import { CommentCookieModel } from './CommentCookieModel'
 import { Article } from './Article'
 import {CookieService, CookieOptionsArgs} from 'angular2-cookie/core';
 
@@ -40,13 +41,89 @@ export class BlogHelper {
         return tree;
     }
 
-    static createCommentCookie(commentObj: any, cookieService: CookieService){
+    static addCookieCommentToCommentTree(comments: Comment[], comment: CommentCookieModel){
+
+        if(comment.parentId <= 0){
+            comments.push(new Comment(-1, comment.articleId, comment.createdDate, comment.authorName, "", "", "You comment is waiting moderation", []));
+            return;
+        }
+
+        comments.forEach(c => {
+            if(c.id == comment.parentId){
+                c.childs.push(new Comment(-1, comment.articleId, comment.createdDate, comment.authorName, "", "", "You comment is waiting moderation", []));
+                return;
+            }
+            else {
+                this.addCookieCommentToCommentTree(c.childs, comment);
+            }
+        })
+    }
+
+    static getCommentIds(comments : Comment[]) : number[]{
+        var commentIds:number[] = [];
+
+        comments.forEach(c => {
+            commentIds.push(c.id);
+
+            var childCommentIds = this.getCommentIds(c.childs);
+
+            commentIds = commentIds.concat(childCommentIds);
+        });
+
+        return commentIds;
+    }
+
+    static addCommentToCookie(commentObj: any, commentParentId: number, cookieService: CookieService){
+        var commentCookie = this.createCommentCookie(commentObj, commentParentId, cookieService);
+
+        var commentsCookieModels = cookieService.getObject("commentCookie") as CommentCookieModel[];
+
+        if(commentsCookieModels){ //Cookie exists
+            commentsCookieModels.push(commentCookie);
+
+           var options:CookieOptionsArgs = {"expires" : moment().add(1, 'year').toDate()};
+           cookieService.putObject("commentCookie", commentsCookieModels, options)
+
+        }else{ //Create new commentCokie
+
+            commentsCookieModels = [];
+            commentsCookieModels.push(commentCookie);
+
+            var options:CookieOptionsArgs = {"expires": moment().add(1, 'year').toDate()};
+
+            cookieService.putObject("commentCookie", commentsCookieModels, options);
+        }
+    }
+
+    static getCommentsFromCookie(cookieService: CookieService, articleId: number) : CommentCookieModel[] {
+        var commentsCookieModels = cookieService.getObject("commentCookie") as CommentCookieModel[];
+
+        if(commentsCookieModels){
+            return commentsCookieModels.filter(x => x.articleId == articleId);
+        }
+        else {
+            return [];
+        }
+    }
+
+    static removeCommentsFromCookie(commentIds: number[], cookieService: CookieService){
+
+        var commentsCookieModels = cookieService.getObject("commentCookie") as CommentCookieModel[];
+        if(commentsCookieModels){
+
+            commentsCookieModels = commentsCookieModels.filter(x => !commentIds.some(cId => cId == x.id));
+
+            var options:CookieOptionsArgs = {"expires": moment().add(1, 'year').toDate()};
+
+            cookieService.putObject("commentCookie", commentsCookieModels, options);
+        }
+    }
+
+    static createCommentCookie(commentObj: any, commentParentId: number, cookieService: CookieService){
         var obj = JSON.parse(commentObj._body); 
-        var comment = new Comment(obj.id, obj.post, obj.date, obj.author_name, "", obj.author_url, obj.content.rendered, []);
+        var comment = new CommentCookieModel(obj.id, commentParentId, obj.post, obj.author_name, obj.date); 
 
-        var options:CookieOptionsArgs = {"expires" : moment().add(1, 'year').toDate()};
-
-        cookieService.putObject("commentCookie", comment, options);
+        return comment;
     }
     
     static sortCommentTree(comments: Comment[]){
@@ -78,6 +155,12 @@ export class BlogHelper {
 
     static getNumberOfCommentsString(comments: Comment[]): string{
         var numberOfComments = this.getNumberOfComments(comments); 
-        return numberOfComments  + " comment" + ((numberOfComments === 0 || numberOfComments > 1) ? "s" : "");
+
+        if(numberOfComments > 0){
+           return numberOfComments + " comments"; 
+        }
+        else {
+            return "Comment this post!"
+        }
     }
 }
