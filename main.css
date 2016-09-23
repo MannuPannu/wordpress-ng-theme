@@ -43,35 +43,6 @@
     text-align: center;
 }
 
-.menu_bar {
-    font-size: 2rem; 
-    background-color: black;
-    height: 60px;
-
-    border-top-style: solid;
-    border-top-color: black;
-    border-top-width: 1px;
-
-    border-bottom-style: solid;
-    border-bottom-color: black;
-    border-bottom-width: 1px;
-}
-
-.links {
-    color: white;
-    padding-top: 15px;
-}
-
-.link {
-    display: inline-block;
-    margin-right: 20px;
-}
-
-.link a.active {
-    color: #379e7c;
-    font-size: 2.2rem;
-}
-
 .title {
     color: ghostwhite;
     font-size: 3.5rem;
@@ -102,20 +73,8 @@ body {
     max-width: 1060px;
 }
 
-.link > a {
-    color: white;
-    text-decoration: none;
-}
-
 a:hover {
     color: #6ea593;
-}
-
-/* Mobile menu icon */
-.toggleIcon { 
-    display: none; 
-    font-size: 5rem;    
-    margin-top: -10px; 
 }
 
 .articleTitle {
@@ -129,57 +88,6 @@ a:hover {
 
 .addLevelMargin {
     margin-left: 25px;
-}
-
-/* Toggle menu collapsed */
-@media screen and (max-width:680px) {
-  .link:not(:first-child) {display: none;}
-  
-  .toggleIcon { 
-      position: absolute; 
-      display: inline;
-      right: 20px;
-    }
-}
-
-/* Toggle menu shown on computer screen */
-@media screen and (max-width:680px)  {
-    .menu_bar.responsive {
-        height: 100%;
-    }
-
-    .menu_bar.responsive .link {
-        float: none;
-        right: 0;
-        top: 0;
-        display: block;
-        margin-bottom: 15px;
-    }
-
-    .menu_bar.responsive .link.toggleIcon {
-        position: absolute;
-        padding-top: 13px;
-    }
-}
-
-@media screen and (max-device-width: 680px) {
-    .menu_bar.responsive {
-        height: 100%;
-    }
-
-    .menu_bar.responsive .link {
-        float: none;
-        right: 0;
-        top: 0;
-        display: block;
-        margin-bottom: 10px;
-    }
-
-    .menu_bar.responsive .link.toggleIcon {
-        position: absolute;
-        padding-top: 13px;
-        padding-right: 20px;
-    }
 }
 
 /* Set responsive margins for main container and links*/

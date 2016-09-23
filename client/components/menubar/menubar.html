@@ -1,0 +1,21 @@
+<section id="menuBar" class="menu_bar" [ngClass]="{responsive: mobileMenuOpen }">
+    <div class="container">
+        <div class="toggleIcon" (click)="toggleMobileMenu()">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+        <div class="links">
+            <div class="link">
+                <a [routerLink]="['/wordpress/blog', {page: 1}]" routerLinkActive="active">Blog</a>
+            </div>
+            <div class="link">
+                <a routerLink="/wordpress/games" routerLinkActive="active">Games</a>
+            </div>
+            <div class="link">
+                <a routerLink="/wordpress/aboutme" routerLinkActive="active">About me</a>
+            </div>
+
+        </div>
+    </div>
+</section>

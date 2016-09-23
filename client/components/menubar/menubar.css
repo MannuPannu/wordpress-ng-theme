@@ -1,0 +1,100 @@
+.menu_bar {
+    font-size: 2rem; 
+    background-color: black;
+    height: 60px;
+
+    border-top-style: solid;
+    border-top-color: black;
+    border-top-width: 1px;
+
+    border-bottom-style: solid;
+    border-bottom-color: black;
+    border-bottom-width: 1px;
+}
+
+.links {
+    color: white;
+    padding-top: 12px;
+}
+
+.link {
+    display: inline-block;
+    margin-right: 20px;
+}
+
+.link a.active {
+    color: #379e7c;
+    font-size: 2.2rem;
+}
+
+.link > a {
+    color: white;
+    text-decoration: none;
+}
+
+.bar {
+    width: 50px;
+    height: 3px;
+    background-color: whitesmoke;
+    margin: 8px;
+    display: block;
+}
+
+/* Mobile menu icon */
+.toggleIcon { 
+    display: none; 
+    font-size: 5rem;    
+    margin-top: 6px; 
+    cursor: pointer;
+    padding: 3px;
+    right: 15px;
+    border-radius: 5px;
+}
+
+.toggleIcon:hover {
+   background-color: #272727; 
+}
+
+.menu_bar.responsive .toggleIcon {
+   background-color: #272727; 
+}
+
+/* Toggle menu shown on computer screen */
+@media screen and (max-width:680px)  {
+  .link:not(:first-child) {display: none;}
+
+    .menu_bar.responsive {
+        height: 100%;
+    }
+
+    .menu_bar.responsive .link {
+        float: none;
+        right: 0;
+        top: 0;
+        display: block;
+        margin-bottom: 15px;
+    }
+
+    .toggleIcon { 
+      position: absolute; 
+      display: inline;
+    }
+}
+
+@media screen and (max-device-width: 680px) {
+    .menu_bar.responsive {
+        height: 100%;
+    }
+
+    .menu_bar.responsive .link {
+        float: none;
+        top: 0;
+        display: block;
+        margin-bottom: 10px;
+    }
+
+    .menu_bar.responsive .link.toggleIcon {
+        position: absolute;
+        padding-right: 20px;
+    }
+}

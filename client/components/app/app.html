@@ -4,26 +4,7 @@
         <span class="sub-title">On programming, tech & games</span>
     </div>
 </section>
-<section id="menuBar" class="menu_bar">
-    <div class="container">
-        <div class="toggleIcon">
-            <a href="javascript:void(0);" onclick="myFunction()">&#9776;</a>
-        </div>
-        <div class="links">
-            <div class="link">
-                <a [routerLink]="['/wordpress/blog', {page: 1}]" routerLinkActive="active">Blog</a>
-            </div>
-            <div class="link">
-                <a routerLink="/wordpress/games" routerLinkActive="active">Games</a>
-            </div>
-            <div class="link">
-                <a routerLink="/wordpress/aboutme" routerLinkActive="active">About me</a>
-            </div>
-
-        </div>
-    </div>
-</section>
-
+<menubar></menubar>
 <section class="container">
     <div class="row">
         <div class="eight columns">
