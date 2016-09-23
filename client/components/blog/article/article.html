@@ -1,8 +1,7 @@
-    <h2><a class="articleTitle" (click)="gotoDetailedView(false)" href="javascript:void(0)" [innerHTML]="article.data.title"></a></h2>
-    <h6><a (click)="gotoDetailedView(true)" class="articleDateText">{{ articleDate }}&nbsp;|&nbsp;{{ numberOfCommentsStr }}</a></h6>
-    <p>
-        <span [innerHTML]="article.data.content">
-        </span>
-    </p>
-    <!--<span>{{ article | json }}</span>-->
-    <hr />
+<h2><a class="articleTitle" (click)="gotoDetailedView(false)" href="javascript:void(0)" [innerHTML]="article.data.title"></a></h2>
+<h6><a (click)="gotoDetailedView(true)" class="articleDateText">{{ articleDate }}&nbsp;|&nbsp;{{ numberOfCommentsStr }}</a></h6>
+<p>
+    <span [innerHTML]="article.data.content">
+    </span>
+</p>
+<hr />

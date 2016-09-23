@@ -4,3 +4,4 @@
 <a *ngIf="!showNoHitsMessage" href="javascript:void(0)" (click)="loadMore()">Load more articles</a>
 <br />
 <div *ngIf="showNoHitsMessage" class="alert alert-info">No more articles available</div>
+<loader *ngIf="loading"></loader>

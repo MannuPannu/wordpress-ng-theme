@@ -15,3 +15,5 @@
         <commentform id="addComment" [comment]="newComment" (commentSent)="commentSent($event)"></commentform>
     </div>
 </div>
+
+<loader *ngIf="loading"></loader>

@@ -16,6 +16,8 @@ export class ArticleListComponent implements OnInit {
     articles : Article[] = [];
     articleComments: Object;
 
+    loading: boolean = false;
+
     showNoHitsMessage: boolean = false;
 
     constructor(private _http: Http, private _blogService: BlogService, private route: ActivatedRoute, private router: Router,
@@ -27,14 +29,17 @@ export class ArticleListComponent implements OnInit {
                 this.articles = this._articleService.getArticles();
             }
             else{
+                this.loading = true;
                 this._articleService.fetchArticles().subscribe((articles: Article[]) => {
                   this.articles = articles;
+                  this.loading = false;
                 })        
             }
         });
     }
 
     loadMore(){
+        this.loading = true;
         this._articleService.loadMore().subscribe((articles: Article[]) => {
 
             if(this.articles == articles){
@@ -42,6 +47,7 @@ export class ArticleListComponent implements OnInit {
             }
 
             this.articles = articles;
+            this.loading = false;
         });
     }
 }

@@ -18,6 +18,8 @@ export class ArticlePageComponent implements OnInit{
     numberOfCommentsStr: string;
     newComment: Comment;
 
+    loading: boolean = true;
+
     hasScrolled: boolean;
     replyFormIsVisible: boolean;
 
@@ -35,6 +37,7 @@ export class ArticlePageComponent implements OnInit{
             let slug = params['slug']; 
             this._blogService.getArticleBySlug(slug).subscribe((article: Article) => {
                 this.article = article;
+                this.loading = false;
 
                 this._blogService.getCommentsByArticleId(article.data.id).subscribe((comments: Comment[]) => {
                     this.article.comments = comments;
@@ -49,6 +52,7 @@ export class ArticlePageComponent implements OnInit{
 
                     this.numberOfCommentsStr = BlogHelper.getNumberOfCommentsString(this.article.comments);
                     BlogHelper.sortCommentTree(article.comments);
+
                 });
 
                 this.articleDate = moment(this.article.data.createDate).format("YYYY-MM-DD");
