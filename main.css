@@ -1,8 +1,8 @@
 .topbar {
     height: 175px;
-	background-color: #379e7c;
-    background-image: url('grey.png');
-    background-blend-mode: multiply;
+	background-color: #28926f;
+    /*background-image: url('grey.png');*/
+    /*background-blend-mode: multiply;*/
 }
 
 .footer {
