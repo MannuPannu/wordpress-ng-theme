@@ -1,4 +1,6 @@
 <div *ngFor="let article of articles">
     <article-component [article]="article"></article-component>
 </div>
-<pager (pageClicked)="pageClicked($event)" *ngIf="articles.length > 0" [itemsPerPage]="articlePerPage" [numberOfItems]="totalArticleCount" [pageIndex]="pageIndex"></pager>
+<a *ngIf="!showNoHitsMessage" href="javascript:void(0)" (click)="loadMore()">Load more articles</a>
+<br />
+<div *ngIf="showNoHitsMessage" class="alert alert-info">No more articles available</div>

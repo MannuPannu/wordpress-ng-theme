@@ -19,16 +19,20 @@ export class BlogService {
         )
     }
 
-    public populateArticles(pageIndex : number, articles:Article[], perPage: number) {
+    public populateArticles(pageIndex : number, perPage: number) {
         //Gets articles and comments from API then joins them to create Article objects
-        Observable.forkJoin([this.getArticlesByPageFromAPI(pageIndex, perPage), 
+        return Observable.forkJoin([this.getArticlesByPageFromAPI(pageIndex, perPage), 
                              this.getCommentsByPageFromAPI(pageIndex)])
-                           .subscribe((queue: any) => {
+                           .map((queue: any) => {
                               var _articles = JSON.parse(queue[0]._body);
                               var comments = JSON.parse(queue[1]._body) as any[];
 
+                              var articles:Article[] = [];
+
                               _articles.forEach((a:any) => articles.push(BlogHelper.createArticle(a, comments.filter(c => c.post === a.id) )) );
-                           })
+
+                              return articles;
+                           });
     }
 
     public getArticleBySlug(slug: string) {

@@ -11,6 +11,8 @@ import { CommentListComponent }  from '../components/blog/commentlist/commentlis
 import { CommentFormComponent }  from '../components/blog/commentform/commentform.component';
 import { PagerComponent }  from '../components/blog/pager/pager.component';
 import { MenuBarComponent }  from '../components/menubar/menubar.component';
+import { ArticleService }  from '../services/article.service';
+import { BlogService }  from '../services/blog.service';
 
 import { routing, routedComponents } from '../app.routing';
 
@@ -18,7 +20,7 @@ import { routing, routedComponents } from '../app.routing';
   imports: [ BrowserModule, HttpModule, routing , FormsModule],
   declarations: [ AppComponent, routedComponents, ArticleComponent, CommentListComponent, CommentFormComponent, PagerComponent,
               MenuBarComponent ],
-  providers: [CookieService],
+  providers: [CookieService, ArticleService, BlogService],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }

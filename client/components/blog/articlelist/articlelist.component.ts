@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Http} from '@angular/http';
 import { BlogService } from '../../../services/blog.service'
+import { ArticleService } from '../../../services/article.service'
 import { ArticleComponent } from '../article/article.component'
 import {Article} from '../../../classes/Article';
 import { ActivatedRoute, Params, Router, NavigationExtras } from '@angular/router';
@@ -12,37 +13,35 @@ import { ActivatedRoute, Params, Router, NavigationExtras } from '@angular/route
     providers: [BlogService],
 })
 export class ArticleListComponent implements OnInit { 
-    articles : Article[];
+    articles : Article[] = [];
     articleComments: Object;
 
-    //Paging options
-    pageIndex: number = 1;
-    articlePerPage: number = 5;
+    showNoHitsMessage: boolean = false;
 
-    totalArticleCount: number;
-
-    constructor(private _http: Http, private _blogService: BlogService, private route: ActivatedRoute, private router: Router) { }
+    constructor(private _http: Http, private _blogService: BlogService, private route: ActivatedRoute, private router: Router,
+    private _articleService: ArticleService) { }
 
     ngOnInit(){
         this.route.params.subscribe(params => {
-            this.articles = [];
-
-            var pageParam = params['page']; 
-
-            if(pageParam){
-                this.pageIndex = pageParam;
+            if(this._articleService.hasLoadedArticles){
+                this.articles = this._articleService.getArticles();
             }
-
-            this._blogService.getArticleTotalCount().subscribe((totArticleCount:number) => {
-                this.totalArticleCount = totArticleCount;
-                this._blogService.populateArticles(this.pageIndex, this.articles, this.articlePerPage);
-
-            });
-
+            else{
+                this._articleService.fetchArticles().subscribe((articles: Article[]) => {
+                  this.articles = articles;
+                })        
+            }
         });
     }
 
-    pageClicked(pageIndex: number){
-        this.router.navigate(['/wordpress/blog', {page: pageIndex}]);
+    loadMore(){
+        this._articleService.loadMore().subscribe((articles: Article[]) => {
+
+            if(this.articles == articles){
+                this.showNoHitsMessage = true;
+            }
+
+            this.articles = articles;
+        });
     }
 }
